@@ -56,6 +56,9 @@ public class SecurityConfig {
 
             // Define which paths need auth
             .authorizeHttpRequests(auth -> auth
+
+                // Allow CORS preflight requests
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // Admin API requires authentication
                 .requestMatchers("/api/admin/**").authenticated()
 
