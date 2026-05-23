@@ -50,7 +50,14 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").permitAll()
                         .anyRequest().permitAll()
                 )
-                .httpBasic(basic -> {})
+//                .httpBasic(basic -> {})
+                .httpBasic(basic -> basic
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(401);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\":\"Unauthorized\"}");
+                        })
+                )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
