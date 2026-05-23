@@ -81,6 +81,4 @@ public class ProjectController {
     public ResponseEntity<List<ProjectImageResponse>> getProjectImages(@PathVariable Long id) {
         return ResponseEntity.ok(projectService.getProjectImages(id));
     }
-
-    // I am gonna change this.
 }
