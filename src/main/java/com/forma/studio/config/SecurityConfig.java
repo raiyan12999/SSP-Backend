@@ -43,13 +43,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
-                .httpBasic(basic -> basic
-                        .authenticationEntryPoint((request, response, authException) -> {
-                            response.setStatus(401);
-                            response.setContentType("application/json");
-                            response.getWriter().write("{\"error\":\"Unauthorized\"}");
-                        })
-                )
+//                .httpBasic(basic -> basic
+//                        .authenticationEntryPoint((request, response, authException) -> {
+//                            response.setStatus(401);
+//                            response.setContentType("application/json");
+//                            response.getWriter().write("{\"error\":\"Unauthorized\"}");
+//                        })
+//                )
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
