@@ -25,6 +25,7 @@ public class DebugFilter extends OncePerRequestFilter {
         System.out.println("Method: " + method);
         System.out.println("URI: " + uri);
         System.out.println("Authorization header: " + auth);
+        System.out.println("Origin: " + request.getHeader("Origin"));
         System.out.println("====================");
 
         filterChain.doFilter(request, response);
