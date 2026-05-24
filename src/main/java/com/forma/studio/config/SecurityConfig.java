@@ -41,17 +41,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//                        .requestMatchers("/api/admin/**").authenticated()
-                        .requestMatchers("/api/admin/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/projects/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/team/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
-                        .requestMatchers("/uploads/**").permitAll()
-                        .requestMatchers("/admin/**").permitAll()
                         .anyRequest().permitAll()
                 )
-//                .httpBasic(basic -> {})
                 .httpBasic(basic -> basic
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(401);
@@ -72,9 +63,9 @@ public class SecurityConfig {
         List<String> origins = Arrays.asList(allowedOriginsStr.split(","));
         config.setAllowedOrigins(origins);
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "Accept", "X-Requested-With"));
+        config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
-        config.setMaxAge(3600L);  // ← only new line that matters most
+        config.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
